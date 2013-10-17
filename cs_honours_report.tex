@@ -1,0 +1,120 @@
+%
+% Honours Report Template
+% updated May 2013
+%
+\documentclass[a4,12pt]{article}
+%
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{./natbib/natbib}
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{color}
+
+%\graphicspath{{./figures/}
+%Formatting-------------------------------------------------------------------
+%\renewcommand{\refname}{\textbf{Literature}}
+%
+\renewcommand{\contentsname}{\small\textbf{{\center Table of Contents}}}
+%
+\setlength{\textheight}{8.8in}
+%
+\setlength{\topmargin}{-1.5cm}
+%
+\doublespacing
+%\setlength{\textwidth}{17cm}
+%
+%\setlength{\oddsidemargin}{-0.1714in}
+%
+% Boxit -----------------------------------------------------------
+\setlength{\fboxrule}{0.2mm} \setlength{\fboxsep}{4mm}
+%
+\newsavebox{\savepar}
+\newenvironment{boxit}{\begin{lrbox}{\savepar}
+        \begin{minipage}[b]{4.6in}}
+        {\end{minipage}\end{lrbox}\fbox{\usebox{\savepar}}}
+        
+        
+        
+        
+ \hyphenation{op-tical net-works Mathe-ma-tical street-scape street-scapes aes-the-tics aes-the-tic com-pu-ting geo-metric Geo-me-tric geo-metry boun-da-ries de-ve-lop-ment know-ledge mani-fold mani-folds high-di-men-sio-nal}
+%
+%
+%
+% Document-----------------------------------------------------------------------
+%
+\begin{document}
+%
+\title{\bf Distributed Operating Systems}
+%
+\author{Ross Bille\\
+School of Electrical Engineering \& Computer Science\\
+The University of Newcastle\\ Callaghan NSW 2308, Australia\\
+Email: \texttt{c3127333@uon.edu.au} } 
+
+\maketitle
+
+
+\newpage
+\begin{abstract}%
+\noindent The abstract summarises the content of the paper or report and should have 70-200 words (depending on the publisher or other requirements); It
+should state briefly what the paper is about (maybe also what
+methods were used), what its (new) results are, why it is
+important or significant. It can also be useful to state (or
+indicate implicitly) who is the addressed readership and whether
+its a review article, a short paper, a pilot study, an
+extension of previous work or a thesis. Try to avoid special symbols, abbreviations, and citations.
+\end{abstract}
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Introduction}
+
+There are different ways to write an introduction. Typically it
+contains background information and a review of literature which
+indicates how the study fits into the context of other previous
+work. This way the introduction can  address the significance and importance of the study. Major related publications in big journals should be cited
+as well as closely related other articles. The literature review typically uses newer papers when it tries to address the state-of-the-art of a technique or recent developments. However, when first mentioning a method name the historically first source that introduced that concept should be cited. There are different citation styles and here is an example~\citep{QuinlanChalupMiddletonACRA2003}. The introduction
+typically motivates the general hypotheses, aims and research questions
+of a paper, report or thesis.  
+
+\begin{center}
+\begin{boxit}
+\textbf{The research question is important.}
+\end{boxit}
+\end{center}
+
+Questions raised in the introduction can later be answered in the final discussion.
+
+The introduction often ends with a brief overview of the structure or organisation of
+the paper, report or thesis.
+
+%
+\section{Persistence}\label{sec:persistence}
+\section{System State Preserveration}\label{sec:preservation}
+\section{Discussion}
+%compare and contrast
+%
+\section{Conclusion}
+%
+A brief final summary of the main achievements and outcomes. Possibly some suggestions for future work that can follow on from your project.%
+%
+\subsection*{Acknowledgements}
+The author is grateful to ....
+%
+\vskip 0.2in
+%\newpage
+\bibliographystyle{apalike}
+\bibliography{./literature.bib}
+
+\end{document}
