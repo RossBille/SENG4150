@@ -51,9 +51,9 @@
 %
 \begin{document}
 %
-\title{\bf Distributed Operating Systems}
+\title{\bf Distributed Operating Systems - Persistence \& State Preserveration}
 %
-\author{Ross Bille\\
+\author{Ross Bille - 3127333\\
 School of Electrical Engineering \& Computer Science\\
 The University of Newcastle\\ Callaghan NSW 2308, Australia\\
 Email: \texttt{c3127333@uon.edu.au} } 
@@ -111,6 +111,12 @@ Three principles of persistence were identified by Atkinson and Morrison \citep{
     \item{The Principle of Persistence Identiﬁcation - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
 \section{System State Preserveration}\label{sec:preservation}
+\subsection{Low-power}
+Keep a small amount of power in the system, just enough to keep primary memory live.
+\subsection{Memory dump}
+Write the entire system state to secondary storage.
+\subsubsection{Hibernate}
+User invokes an action to save the current system state to secondary storage.
 as you will see in Section~\ref{sec:discussion}
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
