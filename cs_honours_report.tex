@@ -84,7 +84,7 @@ There are different ways to write an introduction. Typically it
 contains background information and a review of literature which
 indicates how the study fits into the context of other previous
 work. This way the introduction can  address the significance and importance of the study. Major related publications in big journals should be cited
-as well as closely related other articles. The literature review typically uses newer papers when it tries to address the state-of-the-art of a technique or recent developments. However, when first mentioning a method name the historically first source that introduced that concept should be cited. There are different citation styles and here is an example~\citep{QuinlanChalupMiddletonACRA2003}. The introduction
+as well as closely related other articles. The literature review typically uses newer papers when it tries to address the state-of-the-art of a technique or recent developments. However, when first mentioning a method name the historically first source that introduced that concept should be cited. There are different citation styles and here is an example introduction
 typically motivates the general hypotheses, aims and research questions
 of a paper, report or thesis.  
 
@@ -98,11 +98,21 @@ Questions raised in the introduction can later be answered in the final discussi
 
 The introduction often ends with a brief overview of the structure or organisation of
 the paper, report or thesis.
-
+test~\citep{ADearle}
 %
 \section{Persistence}\label{sec:persistence}
+Generally in computer science persistence is when the data that a process is working on outlives the life of the aformentioned process.
+\subsection{Orthogonal Persistence}
+Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer.
+Three principles of persistence were identified by Atkinson and Morrison \citep{Atkinson}, these principles are as follows:
+\begin{itemize}
+    \item{The Principle of Persistence Independence - Programmer cannot invoke persistence}
+    \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
+    \item{The Principle of Persistence Identiﬁcation - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
+\end{itemize}
 \section{System State Preserveration}\label{sec:preservation}
-\section{Discussion}
+as you will see in Section~\ref{sec:discussion}
+\section{Discussion}\label{sec:discussion}
 %compare and contrast
 %
 \section{Conclusion}
@@ -110,8 +120,9 @@ the paper, report or thesis.
 A brief final summary of the main achievements and outcomes. Possibly some suggestions for future work that can follow on from your project.%
 %
 \subsection*{Acknowledgements}
-The author is grateful to ....
+The author is grateful to A/Prof Frans Henskens and Mark Wallis.
 %
+
 \vskip 0.2in
 %\newpage
 \bibliographystyle{apalike}
