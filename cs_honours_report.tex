@@ -3,7 +3,17 @@
 % updated May 2013
 %
 \documentclass[a4,12pt]{article}
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+{-2.5ex\@plus -1ex \@minus -.25ex}%
+{1.25ex \@plus .25ex}%
+{\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+
 %
+\usepackage{url}
 \usepackage{epsfig}
 \usepackage{latexsym}
 \usepackage{graphicx}
@@ -51,7 +61,7 @@
 %
 \begin{document}
 %
-\title{\bf Distributed Operating Systems - Persistence \& State Preserveration}
+\title{\bf Distributed Operating Systems - Persistence \& State Preservation}
 %
 \author{Ross Bille - 3127333\\
 School of Electrical Engineering \& Computer Science\\
@@ -110,14 +120,38 @@ Three principles of persistence were identified by Atkinson and Morrison \citep{
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identiﬁcation - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
-\section{System State Preserveration}\label{sec:preservation}
-\subsection{Low-power}
-Keep a small amount of power in the system, just enough to keep primary memory live.
-\subsection{Memory dump}
-Write the entire system state to secondary storage.
+\section{System State Preservation}\label{sec:preservation}
+The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transistent manner, this means that if a failure occurs the state can cease to exist. In a perfect world this would not matter however we do not live in a perfect world. The world is full of inconsistencies such as:
+\begin{itemize}
+    \item{Power failures}
+    \item{Data corruption}
+    \item{Limited storage capacity}
+    \item{Limited processing power}
+\end{itemize}
+For these reasons we need to develop methods that allow us to recover from the above mentioned inconsistencies, in such a way that once the system comes back online and usable the user can continue to work as if nothing had happened.
+\\There are a few different methods already developed for this exact purpose, some for useful than others and some that use more resources than others. Sections~\ref{sec:lowpower} and~\ref{sec:memorydump} group these methods by behaviour.
+
+\subsection{Low-power}\label{sec:lowpower}
+The first group of methods that implement System State Preservation share the characteristic (or requirement) that the system is still running, albeit consuming minimal power. These methods keep primary storage powered while other components of the system are shut down. In these methods the system does not need to write anything to secondary storage upon initiation and therefor will not need to read anything on system startup. For this reason these methods are preferable in systems using solid state drives (SSD), aditionally these types of preservation are generally the quickest methods (only having to wait for all other components to come back online).
+\\The following sections describe some examples of these method of System State Preservation.
+
+\subsubsection{Suspend to RAM}\label{sec:stRam}
+This is a method used by the Linux operating system where power is cut to all components of the system except for RAM which contains all the information in relation to system state.\citep{Wiki}
+
+\subsection{Memory dump}\label{sec:memorydump}
+The next group of methods share the characteristic that they all write the systems state to secondary (non-volatile) storage and completly shut down, this means that the next system start up will function just like a cold start up except that once the system is ready it will read the last valid system state back into ram.
 \subsubsection{Hibernate}
 User invokes an action to save the current system state to secondary storage.
 as you will see in Section~\ref{sec:discussion}
+\paragraph{Suspend to Disk}\label{sec:stDisk}
+An implementation of hibernate used in the Linux operating system, the entire systems state is saved into swap space and the machine is completly powered off.\citep{Wiki}
+\subsubsection{Sleep}
+
+\subsection{Hybrid Sleep}
+As the name suggests Hybrid Sleep is a combination of Sleep and Hibernate.
+\subsubsection{Suspend to Both}
+The Linux implementation of Hybrid Sleep, this is a combination of the the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk}
+
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
 %
