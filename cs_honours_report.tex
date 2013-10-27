@@ -100,7 +100,7 @@ of a paper, report or thesis.
 
 \begin{center}
 \begin{boxit}
-\textbf{The research question is important.}
+\textbf{Persistence \& State Preservation.}
 \end{boxit}
 \end{center}
 
@@ -120,13 +120,16 @@ Three principles of persistence were identified by Atkinson and Morrison \citep{
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identiﬁcation - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
+
+\subsection{Persistent Operating Systems}\label{sec:persistentOS}
 \section{System State Preservation}\label{sec:preservation}
-The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transistent manner, this means that if a failure occurs the state can cease to exist. In a perfect world this would not matter however we do not live in a perfect world. The world is full of inconsistencies such as:
+The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transistent manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect world this would not matter however we do not live in a perfect world. We need to consider inconsistencies such as:
 \begin{itemize}
     \item{Power failures}
     \item{Data corruption}
     \item{Limited storage capacity}
     \item{Limited processing power}
+    \item{Limited power (encourgaing users to close laptop lids or power down machines regularly)}
 \end{itemize}
 For these reasons we need to develop methods that allow us to recover from the above mentioned inconsistencies, in such a way that once the system comes back online and usable the user can continue to work as if nothing had happened.
 \\There are a few different methods already developed for this exact purpose, some for useful than others and some that use more resources than others. Sections~\ref{sec:lowpower} and~\ref{sec:memorydump} group these methods by behaviour.
@@ -137,6 +140,9 @@ The first group of methods that implement System State Preservation share the ch
 
 \subsubsection{Suspend to RAM}\label{sec:stRam}
 This is a method used by the Linux operating system where power is cut to all components of the system except for RAM which contains all the information in relation to system state.\citep{Wiki}
+\subsubsection{PC box Power Management (PCPM)}
+Used by most Windows computers since Windows 2000, PCPM refers to a form of system state preservation concerned with lowering power consumption of the PC (hard drive, CPU, etc.)~\citep{PCPM} usually to save laptop battery life or to meet energy standards set by Energy Star in conjunction with Advanced Configuration Power Interface (ACPI)~\citep{PCPM}.
+\\This method is simmilar to Linux's method mentioned in section~\ref{sec:stRam} often refered to as ``sleep'', however some difficulties arose when networking started becomming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep, for this reason it has been necessary to activate the Wake On Lan (WOL) feature of the operating system. WOL makes it possible for administrators to ``wake'' a computer from ``sleep'' by sending a message through the network interface~\citep{WOL}. 
 
 \subsection{Memory dump}\label{sec:memorydump}
 The next group of methods share the characteristic that they all write the systems state to secondary (non-volatile) storage and completly shut down, this means that the next system start up will function just like a cold start up except that once the system is ready it will read the last valid system state back into ram.
