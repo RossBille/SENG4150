@@ -146,20 +146,23 @@ Used by most Windows computers since Windows 2000, PCPM refers to a form of syst
 \\This method is simmilar to Linux's method mentioned in section~\ref{sec:stRam} often refered to as ``sleep'', however some difficulties arose when networking started becomming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep, for this reason it has been necessary to activate the Wake On Lan (WOL) feature of the operating system. WOL makes it possible for administrators to ``wake'' a computer from ``sleep'' by sending a message through the network interface~\citep{WOL} making it possible for administrators to remotely issue updates. For WOL to function the network interface must be powered as well as the RAM and this is the main difference between PCPM and Suspend to RAM mentioned in section~\ref{sec:stRam}.
 
 \subsection{Memory dump}\label{sec:memorydump}
-The next group of methods share the characteristic that they all write the systems state to secondary (non-volatile) storage and completly shut down, this means that the next system start up will function just like a cold start up except that once the system is ready it will read the last valid system state back into ram.
-These methods are the most useful in dealing with laptops that have run out of battery power providing the operating system is configured to perform a system state write before all power is completly lost. These methods are still vulnerable to complete and sudden power losses because they need time to perform the write operations.
+The next group of methods share the characteristic that they all write the systems state to secondary (non-volatile) storage and completely shut down, this means that the next system start up will function just like a cold start up except that once the system is ready it will read the last valid system state back into ram.
+These methods are the most useful in dealing with laptops that have run out of battery power providing the operating system is configured to perform a system state write before all power is completely lost. These methods are still vulnerable to complete and sudden power losses because they need time to perform the write operations.
 \subsubsection{Hibernate}
 Hibernate is the main implementation of System State Preservation where the entire state is written to secondary storage. It is implemented in most modern operating systems, namely Windows 2000+ (support existed at the hardware level of Windows 95), Mac OSX 10.4+, and Linux since kernel 2.6.
 User invokes an action to save the current system state to secondary storage.
 as you will see in Section~\ref{sec:discussion}
 \paragraph{Suspend to Disk}\label{sec:stDisk}
-An implementation of hibernate used in the Linux operating system, the entire systems state is saved into swap space and the machine is completly powered off.\citep{Wiki}
+An implementation of hibernate used in the Linux operating system, the entire systems state is saved into swap space and the machine is completely powered off.\citep{Wiki}
 \subsection{Hybrid Methods}
 As the name suggests these methods are a combination of Sleep and Hibernate. Sections~\ref{sec:stb}, \ref{sec:hybridsleep} and \ref{sec:safesleep} explain how Linux, Windows and Apple operating systems (respectively) implement this form of preservation.
 \subsubsection{Suspend to Both}\label{sec:stb}
 The Linux implementation of Hybrid Sleep, this is a combination of the the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk}
 \subsubsection{Hybrid Sleep}\label{sec:hybridsleep}
 \subsubsection{Safe Sleep}\label{sec:safesleep}
+\paragraph{Versioning}
+In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an api for automatic versioning. This api makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automattically save the users work in the background. 
+Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if Safe Sleep fails completely the automatic versioning should still have a recent copy of the users work to access.
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
 %
