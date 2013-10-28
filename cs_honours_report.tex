@@ -26,6 +26,8 @@
 \usepackage{amssymb}
 \usepackage{amsfonts}
 \usepackage{color}
+%stop splitting words at the end of a line
+\usepackage[none]{hyphenat}
 
 %\graphicspath{{./figures/}
 %Formatting-------------------------------------------------------------------
@@ -111,14 +113,14 @@ the paper, report or thesis.
 test~\citep{ADearle}
 %
 \section{Persistence}\label{sec:persistence}
-Generally in computer science persistence is when the data that a process is working on outlives the life of the aformentioned process.
+Generally in computer science persistence is when the data that a process is working on outlives the life of the aforementioned  process.
 \subsection{Orthogonal Persistence}
 Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer.
 Three principles of persistence were identified by Atkinson and Morrison \citep{Atkinson}, these principles are as follows:
 \begin{itemize}
     \item{The Principle of Persistence Independence - Programmer cannot invoke persistence}
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
-    \item{The Principle of Persistence Identiﬁcation - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
+    \item{The Principle of Persistence Identification - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
 
 \subsection{Persistent Operating Systems}\label{sec:persistentOS}
@@ -129,42 +131,65 @@ The state of a system refers to the data and processes that live in that state. 
     \item{Data corruption}
     \item{Limited storage capacity}
     \item{Limited processing power}
-    \item{Limited power (encourgaing users to close laptop lids or power down machines regularly)}
+    \item{Limited power (encouraging users to close laptop lids or power down machines regularly)}
 \end{itemize}
 For these reasons we need to develop methods that allow us to recover from the above mentioned inconsistencies, in such a way that once the system comes back online and usable the user can continue to work as if nothing had happened.
-\\There are a few different methods already developed for this exact purpose, some for useful than others and some that use more resources than others. Sections~\ref{sec:lowpower} and~\ref{sec:memorydump} group these methods by behaviour.
+\\There are a few different methods already developed for this exact purpose, some for useful than others and some that use more resources than others. Sections~\ref{sec:lowpower} and~\ref{sec:memorydump} group these methods by behavior.
 
 \subsection{Low-power}\label{sec:lowpower}
-The first group of methods that implement System State Preservation share the characteristic (or requirement) that the system is still running, albeit consuming minimal power. These methods keep primary storage powered while other components of the system are shut down. In these methods the system does not need to write anything to secondary storage upon initiation and therefor will not need to read anything on system startup. For this reason these methods are preferable in systems using solid state drives (SSD), aditionally these types of preservation are generally the quickest methods (only having to wait for all other components to come back online).
+The first group of methods that implement System State Preservation share the characteristic (or requirement) that the system is still running, albeit consuming minimal power. These methods keep primary storage powered while other components of the system are shut down. In these methods the system does not need to write anything to secondary storage upon initiation and therefor will not need to read anything on system startup. For this reason these methods are preferable in systems using solid state drives (SSD), additionally these types of preservation are generally the quickest methods (only having to wait for all other components to come back online).
 \\The following sections describe some examples of these method of System State Preservation.
 
 \subsubsection{Suspend to RAM}\label{sec:stRam}
 This is a method used by the Linux operating system where power is cut to all components of the system except for RAM which contains all the information in relation to system state.\citep{Wiki}
-Suspend to RAM can be initiated by a user or scheduled by the system to save power when the system isnt being directly used. Suspend to RAM is not useful following a complete sudden loss of power due to a power.
-\subsubsection{PC box Power Management (PCPM)}
+Suspend to RAM can be initiated by a user or scheduled by the system to save power when the system isn't being directly used. Suspend to RAM is not useful following a complete sudden loss of power due to a power.
+\subsubsection{PC box Power Management (PCPM)}\label{sec:PCPM}
 Used by most Windows computers since Windows 2000, PCPM refers to a form of system state preservation concerned with lowering power consumption of the PC (hard drive, CPU, etc.)~\citep{PCPM} usually to save laptop battery life or to meet energy standards set by Energy Star in conjunction with Advanced Configuration Power Interface (ACPI)~\citep{PCPM}.
-\\This method is simmilar to Linux's method mentioned in section~\ref{sec:stRam} often refered to as ``sleep'', however some difficulties arose when networking started becomming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep, for this reason it has been necessary to activate the Wake On Lan (WOL) feature of the operating system. WOL makes it possible for administrators to ``wake'' a computer from ``sleep'' by sending a message through the network interface~\citep{WOL} making it possible for administrators to remotely issue updates. For WOL to function the network interface must be powered as well as the RAM and this is the main difference between PCPM and Suspend to RAM mentioned in section~\ref{sec:stRam}.
+\\This method is similar to Linux's method mentioned in section~\ref{sec:stRam} often referred to as ``sleep'', however some difficulties arose when networking started becoming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep, for this reason it has been necessary to activate the Wake On Lan (WOL) feature of the operating system. WOL makes it possible for administrators to ``wake'' a computer from ``sleep'' by sending a message through the network interface~\citep{WOL} making it possible for administrators to remotely issue updates. For WOL to function the network interface must be powered as well as the RAM and this is the main difference between PCPM and Suspend to RAM mentioned in section~\ref{sec:stRam}.
 
 \subsection{Memory dump}\label{sec:memorydump}
 The next group of methods share the characteristic that they all write the systems state to secondary (non-volatile) storage and completely shut down, this means that the next system start up will function just like a cold start up except that once the system is ready it will read the last valid system state back into ram.
 These methods are the most useful in dealing with laptops that have run out of battery power providing the operating system is configured to perform a system state write before all power is completely lost. These methods are still vulnerable to complete and sudden power losses because they need time to perform the write operations.
-\subsubsection{Hibernate}
+\subsubsection{Hibernate}\label{sec:hibernate}
 Hibernate is the main implementation of System State Preservation where the entire state is written to secondary storage. It is implemented in most modern operating systems, namely Windows 2000+ (support existed at the hardware level of Windows 95), Mac OSX 10.4+, and Linux since kernel 2.6.
-User invokes an action to save the current system state to secondary storage.
-as you will see in Section~\ref{sec:discussion}
+Hibernate can be invoked by a user, scheduled by the system (after a certain period of inactivity) or forced when a low-power state is detected (less than 5\% battery power), upon invocation the operating system will write the entire contents of RAM to non-volatile secondary storage and commence a complete power down.
 \paragraph{Suspend to Disk}\label{sec:stDisk}
-An implementation of hibernate used in the Linux operating system, the entire systems state is saved into swap space and the machine is completely powered off.\citep{Wiki}
+An implementation of hibernate used in the Linux operating system since kernel 2.6, the entire systems state is saved into swap space and the machine is completely powered off.\citep{Wiki}
 \subsection{Hybrid Methods}
-As the name suggests these methods are a combination of Sleep and Hibernate. Sections~\ref{sec:stb}, \ref{sec:hybridsleep} and \ref{sec:safesleep} explain how Linux, Windows and Apple operating systems (respectively) implement this form of preservation.
-\subsubsection{Suspend to Both}\label{sec:stb}
-The Linux implementation of Hybrid Sleep, this is a combination of the the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk}
+As the name suggests these methods are a combination of Sleep and Hibernate. Sections~\ref{sec:stBoth}, \ref{sec:hybridsleep} and \ref{sec:safesleep} explain how Linux, Windows and Apple operating systems (respectively) implement this form of preservation.
+Generally these methods write the system state to secondary storage and then enter their low power state (see section~\ref{sec:lowpower}). This means that the system is protected from a total power loss while still allowing for quicker startup times (when compared to the methods mentioned in \ref{sec:memorydump}) provided the power isn't completely lost. 
+\subsubsection{Suspend to Both}\label{sec:stBoth}
+The Linux implementation of Hybrid Sleep, this is a combination of the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk}
 \subsubsection{Hybrid Sleep}\label{sec:hybridsleep}
+This method is used by Windows operating systems since Vista.
 \subsubsection{Safe Sleep}\label{sec:safesleep}
 \paragraph{Versioning}
-In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an api for automatic versioning. This api makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automattically save the users work in the background. 
+In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an api for automatic versioning. This api makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automatically save the users work in the background. 
 Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if Safe Sleep fails completely the automatic versioning should still have a recent copy of the users work to access.
+\subsection{Advance Configuration and Power Interface (ACPI)}
+The ACPI defines the current standards for power management \citep{ACPI} and as such have categorized all the methods described throughout this section on system state preservation (section~\ref{sec:preservation}). Table~\ref{table:categories} outlines where these methods are rated in terms of power usage.
+\begin{table}[h!]
+    \begin{center}
+        \leavevmode
+        \begin{tabular}{|cll|l|}\hline
+            Method & Section & Category\\[0.1cm]\hline
+            Suspend to RAM & \ref{sec:stRam} & S3\\
+            PCPM & \ref{sec:PCPM} & S3 \\
+            Hibernate & \ref{sec:hibernate} & S4\\
+            Suspend to Disk & \ref{sec:stDisk} & S4 \\
+            Suspend to Both & \ref{sec:stBoth} & S3 \\
+            Hybrid Sleep & \ref{sec:hybridsleep} & S3 \\
+            Safe Sleep & \ref{sec:safesleep} & S3 \\\hline
+        \end{tabular}
+    \end{center}
+    \caption{ACPI power saving categories \citep{ACPI}}
+    \label{table:categories}
+\end{table}
+\\S3 refers to all methods that consume ``low power'' and S4 refers to methods where absolutely no power is used \citep{ACPI}. S1 and S2 do exist (along with many others) but are not concerned with system state preservation and are not included in this report.
+\newpage
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
+Given a completely persistent system there would be no need for methods that preserve a systems state.
 %
 \section{Conclusion}
 %
@@ -172,13 +197,14 @@ A brief final summary of the main achievements and outcomes. Possibly some sugge
 %
 \subsection*{Acknowledgements}
 The author is grateful to A/Prof Frans Henskens and Mark Wallis.
+\newpage
 \section{Glossary}
-\textbf{Push:} Copying data from a source to one or many destinations. 
-\textbf{ }
+\textbf{Push:} Copying data from a source to one or many destinations. \\
+\textbf{API:}
 %
 
 \vskip 0.2in
-%\newpage
+\newpage
 \bibliographystyle{apalike}
 \bibliography{./literature.bib}
 
