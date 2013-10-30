@@ -27,7 +27,7 @@
 \usepackage{amsfonts}
 \usepackage{color}
 %stop splitting words at the end of a line
-\usepackage[none]{hyphenat}
+%\usepackage[none]{hyphenat}
 
 %\graphicspath{{./figures/}
 %Formatting-------------------------------------------------------------------
@@ -114,7 +114,13 @@ test~\citep{ADearle}
 %
 \section{Persistence}\label{sec:persistence}
 Generally in computer science persistence is when the data that a process is working on outlives the life of the aforementioned  process.
-\subsection{Orthogonal Persistence}
+\subsection{Conventional Systems}
+Conventional systems work in a transient manner, data and processes in these systems don't persist natively because the data that is being executed on exists in volatile main memory. For this reason programmers have had to develop methods of persistence. Conventionally this is done through the use of databases where a programmer needs to create mappings between objects and data in main memory and data in the database.
+\subsubsection{Cons}\label{sec:cons}
+The negative effects of this methodology are obvious, for instance if the system (or program running on a system) becomes unstable (see section~\ref{sec:preservation}) then all data can be lost. To combat this (as mentioned above) extra work is needed on the programmers behalf to move these objects into non-volatile memory, this not only give the programmer more work, but also increases the load that a program puts on the system due to database calls which in a lot of languages are ``unable to benefit from compile-time verification and design-time features like IntelliSense.''\citep{XML}.
+\subsubsection{Pros}
+Despite the cons mentioned in section~\ref{sec:cons} there are still a few pros of working in a conventional system. When the need for persistence arose the database was created \citep{Databases}. A database stores many kinds of data in a standardised way for access by numerous different programs, this creates a loose coupling between the program and its persistent data, making it easier to create generic light-weight reports to run over large sets of data without having to write large programs that incorporate this functionality.
+\subsection{Orthogonal Persistence}\label{sec:orthogonal}
 Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer.
 Three principles of persistence were identified by Atkinson and Morrison \citep{Atkinson}, these principles are as follows:
 \begin{itemize}
@@ -122,13 +128,25 @@ Three principles of persistence were identified by Atkinson and Morrison \citep{
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identification - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
-\subsection{Persistent Programming Languages}\label{sec:persistentLanguages}
-\subsubsection{Modifications to Existing}
-\subsection{Persistent Operating Systems}\label{sec:persistentOS}
+\subsection{Persistence in Programming Languages}\label{sec:persistentLanguages}
+%PS-algol
+\subsubsection{PS-Algol}
+%Napier88
+\subsubsection{Napier88}
+%Java
+\subsubsection{Java}
+Out-of-the-box Java is a transient programming language however largely due to the concept of the Java Virtual Machine (JVM) it has been useful in creating some persistent systems. Following are some of those implementations.
+\paragraph{PJama}
+\paragraph{ANU-OPJ}
+\paragraph{Grasshopper}
+%
+%
+\subsection{Persistence at the Operating System}\label{sec:persistentOS}
+\subsubsection{Global Consistency}
 \subsubsection{Grasshopper}\label{sec:grasshopper}
 \subsection{Limitations}\label{sec:limitations}
 \section{System State Preservation}\label{sec:preservation}
-The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transistent manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect world this would not matter however we do not live in a perfect world. We need to consider inconsistencies such as:
+The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transient manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect world this would not matter however we do not live in a perfect world. We need to consider inconsistencies such as:
 \begin{itemize}
     \item{Power failures}
     \item{Data corruption}
@@ -202,8 +220,10 @@ A brief final summary of the main achievements and outcomes. Possibly some sugge
 The author is grateful to A/Prof Frans Henskens and Mark Wallis.
 \newpage
 \section{Glossary}
-\textbf{Push:} Copying data from a source to one or many destinations. \\
 \textbf{API:}
+\\\textbf{Non-volatile:}
+\\\textbf{Push:} Copying data from a source to one or many destinations. 
+\\\textbf{Volatile:}
 %
 
 \vskip 0.2in
