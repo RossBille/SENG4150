@@ -2,7 +2,7 @@
 % Honours Report Template
 % updated May 2013
 %
-\documentclass[a4,12pt]{article}
+\documentclass[a4paper,12pt]{article}
 \makeatletter
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
 {-2.5ex\@plus -1ex \@minus -.25ex}%
@@ -127,11 +127,11 @@ A database stores many kinds of data in a standardised way for access by numerou
 \subsection{Orthogonal Persistence}\label{sec:orthogonal}
 Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer and any users.
 Three principles of persistence were identified by Atkinson and Morrison \citep{Atkinson}, these principles are as follows:
-\begin{itemize}
+\begin{enumerate}
     \item{The Principle of Persistence Independence - Programmer shouldn't be have to invoke persistence}
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identification - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
-\end{itemize}
+\end{enumerate}
 \subsection{Implementations of Persistence}\label{sec:persistentLanguages}
 The following sections will introduce some persistent programming languages including some of the hurdles encountered with each implementation. These implementations will be compared with the definition of orthogonal persistence given in Section~\ref{sec:orthogonal}.
 %PS-algol
@@ -161,18 +161,28 @@ Napier88 is another orthogonally persistent programming language\citep{napier}, 
 %how it compares to the orthogonal persistence model
 Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
-Out-of-the-box Java is a transient programming language however largely due to the concept of the Java Virtual Machine (JVM) it has been useful in creating some persistent systems. Following are some of these implementations.
+Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. In addition the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper}, \ref{sec:pjama} and \ref{sec:anuopj}) largely due to the abstraction it provides over the conventional operating system is runs on. Following are some persistence implementations.
 \paragraph{Java Serialization}
 Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
-\paragraph{Java Persistence API}
+\paragraph{Java's Hibernate}
 %introduction - brief desc of the method
+Because Java is so commonly used for large enterprise applications~\citep{persistenceandjava} there have been a few persistence API's developed. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
+\\One of these persistence API's is Hibernate (not to be confused with section~\ref{sec:hibernate} of this report). Hibernate builds on top of the Enterpise JavaBeans (EJB) and the Java Persistence API's, its main purpose is that of an object-relational mapping (ORM) library~\citep{hibernateORM} which means it creates the mappings between in-memory objects and database tables (thus assisting to provide persistence). Hibernate doesn't provide orthogonal persistence for the following reasons:
+\begin{itemize}
+    \item{Objects can be marked as persistent or transient, breaking the principal of data type orthogonality}
+    \item{A store function must be invoked to perform updates or inserts in the database, breaking the principal of persistence independence}
+\end{itemize}
+Despite not being orthogonally persistent Hibernate is still widely used in industry.
+\paragraph{PJama}\label{sec:pjama}
+%introduction - brief desc of the method
+PJama is is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
-\paragraph{PJama}
-%introduction - brief desc of the method
+\paragraph{ANU-OPJ}\label{sec:anuopj}
+%introduction - brief desc of the method 
 %problems encountered
 %how it compares to the orthogonal persistence model
-\paragraph{ANU-OPJ}
+\paragraph{Language Integrated Query (LINQ)}
 %introduction - brief desc of the method 
 %problems encountered
 %how it compares to the orthogonal persistence model
