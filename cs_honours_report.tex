@@ -172,7 +172,7 @@ Java provides interfaces for object serialization and deserialization to assist 
 \paragraph{Java's Hibernate}\label{sec:javahibernate}
 %introduction - brief desc of the method
 Because Java is so commonly used for large enterprise applications~\citep{persistenceandjava} there have been a few persistence API's developed. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
-\\One of these persistence API's is Hibernate (not to be confused with section~\ref{sec:hibernate} of this report). Hibernate builds on top of the Enterpise JavaBeans (EJB) and the Java Persistence API's, its main purpose is that of an object-relational mapping (ORM) library~\citep{hibernateORM} which means it creates the mappings between in-memory objects and database tables (thus assisting to provide persistence). Hibernate doesn't provide orthogonal persistence for the following reasons:
+\\One of these persistence API's is Hibernate (not to be confused with section~\ref{sec:hibernate} of this report). Hibernate builds on top of the Enterprise JavaBeans (EJB) and the Java Persistence API's, its main purpose is that of an object-relational mapping (ORM) library~\citep{hibernateORM} which means it creates the mappings between in-memory objects and database tables (thus assisting to provide persistence). Hibernate doesn't provide orthogonal persistence for the following reasons:
 \begin{itemize}
     \item{Objects can be marked as persistent or transient, breaking the principal of data type orthogonality}
     \item{A store function must be invoked to perform updates or inserts in the database, breaking the principal of persistence independence}
@@ -245,7 +245,7 @@ The Linux implementation of Hybrid Sleep, this is a combination of the methods e
 This method is used by Windows operating systems since Vista.
 \subsubsection{Safe Sleep}\label{sec:safesleep}
 \paragraph{Versioning}
-In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an api for automatic versioning. This api makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automatically save the users work in the background. 
+In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an api for automatic versioning. This API makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automatically save the users work in the background. 
 Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if Safe Sleep fails completely the automatic versioning should still have a recent copy of the users work to access.
 \subsection{Advance Configuration and Power Interface (ACPI)}
 The ACPI defines the current standards for power management \citep{ACPI} and as such have categorized all the methods described throughout this section on system state preservation (section~\ref{sec:preservation}). Table~\ref{table:categories} outlines where these methods are rated in terms of power usage.
