@@ -17,7 +17,7 @@
 \usepackage{epsfig}
 \usepackage{latexsym}
 \usepackage{graphicx}
-\usepackage{./natbib/natbib}
+\usepackage[round]{./natbib/natbib}
 % It also sets the bibliographystyle to plainnat; for more information on
 % natbib citation styles, see the natbib documentation, a copy of which
 % is archived at http://www.jmlr.org/format/natbib.pdf
@@ -113,38 +113,81 @@ the paper, report or thesis.
 test~\citep{ADearle}
 %
 \section{Persistence}\label{sec:persistence}
-Generally in computer science persistence is when the data that a process is working on outlives the life of the aforementioned  process.
+Generally in computer science persistence is when the data that a process is working on outlives the life of the aforementioned  process. 
+The need for persistence is nicely explained by Atkinson;
+``Large scale and long-lived application systems, enterprise applications, require persistence, that is provision of storage for many of their data structures.''~\citep{persistenceandjava}
+
 \subsection{Conventional Systems}
 Conventional systems work in a transient manner, data and processes in these systems don't persist natively because the data that is being executed on exists in volatile main memory. For this reason programmers have had to develop methods of persistence. Conventionally this is done through the use of databases where a programmer needs to create mappings between objects and data in main memory and data in the database.
 \subsubsection{Cons}\label{sec:cons}
 The negative effects of this methodology are obvious, for instance if the system (or program running on a system) becomes unstable (see section~\ref{sec:preservation}) then all data can be lost. To combat this (as mentioned above) extra work is needed on the programmers behalf to move these objects into non-volatile memory, this not only give the programmer more work, but also increases the load that a program puts on the system due to database calls which in a lot of languages are ``unable to benefit from compile-time verification and design-time features like IntelliSense.''\citep{XML}.
 \subsubsection{Pros}
-Despite the cons mentioned in section~\ref{sec:cons} there are still a few pros of working in a conventional system. When the need for persistence arose the database was created \citep{Databases}. A database stores many kinds of data in a standardised way for access by numerous different programs, this creates a loose coupling between the program and its persistent data, making it easier to create generic light-weight reports to run over large sets of data without having to write large programs that incorporate this functionality.
+Despite the cons mentioned in section~\ref{sec:cons} there are still a few pros of working in a conventional system. The main one being the use of relational databases to implement persistence and the loose coupling achieved through utilizing one~\citep{Databases}.
+A database stores many kinds of data in a standardised way for access by numerous different programs, this creates a loose coupling between the program and its persistent data, making it easier to create generic light-weight reports to run over large sets of data without having to write large programs that incorporate this functionality.
 \subsection{Orthogonal Persistence}\label{sec:orthogonal}
-Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer.
+Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for this to happen the persistence property should happen in the background, transparent to the programmer and any users.
 Three principles of persistence were identified by Atkinson and Morrison \citep{Atkinson}, these principles are as follows:
 \begin{itemize}
-    \item{The Principle of Persistence Independence - Programmer cannot invoke persistence}
+    \item{The Principle of Persistence Independence - Programmer shouldn't be have to invoke persistence}
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identification - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{itemize}
-\subsection{Persistence in Programming Languages}\label{sec:persistentLanguages}
+\subsection{Implementations of Persistence}\label{sec:persistentLanguages}
+The following sections will introduce some persistent programming languages including some of the hurdles encountered with each implementation. These implementations will be compared with the definition of orthogonal persistence given in Section~\ref{sec:orthogonal}.
 %PS-algol
 \subsubsection{PS-Algol}
+%Introduction
+An extension of S-Algol, PS-Algol was the first orthogonally persistent programming language. The compiler was largely unchanged as the persistence extensions were implemented at run-time, with a lot of them being functions that worked with the database such as:
+\begin{itemize}
+    \item{open.database(...)}
+    \item{close.database(...)}
+    \item{commit}
+    \item{abandon}
+    \item{lookup(...)}
+    \item{enter(...)}
+\end{itemize}
+%how it compares to the orthogonal persistence model
+When an object is first accessed it is automatically bound to a representation in the database~\citep{psalgol} (regardless of its type) and is used throughout the objects life cycle, this helps to achieve the principals of data type orthogonality and persistence identification. This action is done automatically meaning the programmer doesn't need to explicitly move the data between mediums thus achieving persistence independence.
 %Napier88
 \subsubsection{Napier88}
-%Java
+%introduction - brief desc of the language
+Napier88 is another orthogonally persistent programming language\citep{napier}, it differs from PS-Algol in the following improvements~\citep{ADearle} (among others):
+\begin{itemize}
+    \item{The infinite union type `any'}
+    \item{The infinite union type `environment'} 
+    \item{Parametric polymorphism}
+    \item{Support for structural reflection}
+\end{itemize}
+%how it compares to the orthogonal persistence model
+Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
-Out-of-the-box Java is a transient programming language however largely due to the concept of the Java Virtual Machine (JVM) it has been useful in creating some persistent systems. Following are some of those implementations.
+Out-of-the-box Java is a transient programming language however largely due to the concept of the Java Virtual Machine (JVM) it has been useful in creating some persistent systems. Following are some of these implementations.
+\paragraph{Java Serialization}
+Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
+\paragraph{Java Persistence API}
+%introduction - brief desc of the method
+%problems encountered
+%how it compares to the orthogonal persistence model
 \paragraph{PJama}
+%introduction - brief desc of the method
+%problems encountered
+%how it compares to the orthogonal persistence model
 \paragraph{ANU-OPJ}
-\paragraph{Grasshopper}
-%
-%
-\subsection{Persistence at the Operating System}\label{sec:persistentOS}
+%introduction - brief desc of the method 
+%problems encountered
+%how it compares to the orthogonal persistence model
+\paragraph{Grasshopper}\label{sec:grasshopper}
+%introduction - brief desc of the language
+%problems encountered
+%how it compares to the orthogonal persistence model
+\subsection{Persistent Operating Systems}\label{sec:persistentOS}
+The components of a persistent system are different to those of a conventional operating system~\citep{Grasshopper} 
 \subsubsection{Global Consistency}
-\subsubsection{Grasshopper}\label{sec:grasshopper}
+\paragraph{Global Checkpointing}
+\paragraph{Asynchronous Checkpointing}
+\paragraph{Synchronous Checkpointing}
 \subsection{Limitations}\label{sec:limitations}
+\subsection{Summary}
 \section{System State Preservation}\label{sec:preservation}
 The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transient manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect world this would not matter however we do not live in a perfect world. We need to consider inconsistencies such as:
 \begin{itemize}
@@ -207,6 +250,7 @@ The ACPI defines the current standards for power management \citep{ACPI} and as 
     \label{table:categories}
 \end{table}
 \\S3 refers to all methods that consume ``low power'' and S4 refers to methods where absolutely no power is used \citep{ACPI}. S1 and S2 do exist (along with many others) but are not concerned with system state preservation and are not included in this report.
+\subsection{Summary}
 \newpage
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
@@ -217,11 +261,12 @@ Given a completely persistent system there would be no need for methods that pre
 A brief final summary of the main achievements and outcomes. Possibly some suggestions for future work that can follow on from your project.%
 %
 \subsection*{Acknowledgements}
-The author is grateful to A/Prof Frans Henskens and Mark Wallis.
+The author is grateful to A/Prof Frans Henskens and Mark Wallis for the content presented throughout the course, and to Michaela Burgess for proof reading this report.
 \newpage
 \section{Glossary}
 \textbf{API:}
 \\\textbf{Non-volatile:}
+\\\textbf{Object Relational Mapper (ORM):} 
 \\\textbf{Push:} Copying data from a source to one or many destinations. 
 \\\textbf{Volatile:}
 %
