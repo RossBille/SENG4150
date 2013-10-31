@@ -132,6 +132,11 @@ Three principles of persistence were identified by Atkinson and Morrison \citep{
     \item{The Principle of Data Type Orthogonality - All data objects are allowed to be persisted}
     \item{The Principle of Persistence Identification - The choice of how to identify persistent objects is orthogonal to the universe of discourse of the system}
 \end{enumerate}
+These principals fit in nicely with the two principals identified by \citet{Grasshopper}:
+\begin{enumerate}
+    \item{Any object may persist (exist) for as long, or as short, a period as the object is required}
+    \item{Objects may be manipulated in the same manner regardless of their longevity}
+\end{enumerate}
 \subsection{Implementations of Persistence}\label{sec:persistentLanguages}
 The following sections will introduce some persistent programming languages including some of the hurdles encountered with each implementation. These implementations will be compared with the definition of orthogonal persistence given in Section~\ref{sec:orthogonal}.
 %PS-algol
@@ -161,29 +166,26 @@ Napier88 is another orthogonally persistent programming language\citep{napier}, 
 %how it compares to the orthogonal persistence model
 Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
-Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. In addition the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper}, \ref{sec:pjama} and \ref{sec:anuopj}) largely due to the abstraction it provides over the conventional operating system is runs on. Following are some persistence implementations.
+Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. In addition the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper} and \ref{sec:pjama}) largely due to the abstraction it provides over the conventional operating system is runs on. Following are some persistence implementations.
 \paragraph{Java Serialization}
 Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
-\paragraph{Java's Hibernate}
+\paragraph{Java's Hibernate}\label{sec:javahibernate}
 %introduction - brief desc of the method
 Because Java is so commonly used for large enterprise applications~\citep{persistenceandjava} there have been a few persistence API's developed. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
 \\One of these persistence API's is Hibernate (not to be confused with section~\ref{sec:hibernate} of this report). Hibernate builds on top of the Enterpise JavaBeans (EJB) and the Java Persistence API's, its main purpose is that of an object-relational mapping (ORM) library~\citep{hibernateORM} which means it creates the mappings between in-memory objects and database tables (thus assisting to provide persistence). Hibernate doesn't provide orthogonal persistence for the following reasons:
 \begin{itemize}
     \item{Objects can be marked as persistent or transient, breaking the principal of data type orthogonality}
     \item{A store function must be invoked to perform updates or inserts in the database, breaking the principal of persistence independence}
-\end{itemize}
+\end{itemize}10
 Despite not being orthogonally persistent Hibernate is still widely used in industry.
 \paragraph{PJama}\label{sec:pjama}
 %introduction - brief desc of the method
 PJama is is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
-\paragraph{ANU-OPJ}\label{sec:anuopj}
-%introduction - brief desc of the method 
-%problems encountered
-%how it compares to the orthogonal persistence model
 \paragraph{Language Integrated Query (LINQ)}
 %introduction - brief desc of the method 
+LINQ is a Microsoft developed technology similar to Javas Hibernate (see section~\ref{sec:javahibernate}), it provides a single generic interface to access objects both in memory (collections etc) and database entities (through the Entity Framework component) to make the location of objects relatively transparent to the programmer~\citep{ADearle}.
 %problems encountered
 %how it compares to the orthogonal persistence model
 \paragraph{Grasshopper}\label{sec:grasshopper}
@@ -198,6 +200,11 @@ The components of a persistent system are different to those of a conventional o
 \paragraph{Synchronous Checkpointing}
 \subsection{Limitations}\label{sec:limitations}
 \subsection{Summary}
+key points:
+\begin{itemize}
+    \item{the need for Persistence isn't well known through industry}
+    \item{Orthogonal persistence is difficult to achieve due to the need to implement all 3 principals mentioned in section~\ref{sec:orthogonal}}
+\end{itemize}
 \section{System State Preservation}\label{sec:preservation}
 The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transient manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect world this would not matter however we do not live in a perfect world. We need to consider inconsistencies such as:
 \begin{itemize}
