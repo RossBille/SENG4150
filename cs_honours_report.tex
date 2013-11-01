@@ -244,16 +244,25 @@ These methods are the most effective in dealing with laptops that have run out o
 \subsubsection{Hibernate}\label{sec:hibernate}
 Hibernate is the main implementation of System State Preservation where the entire state is written to secondary storage. It is implemented in most modern operating systems, namely Windows 2000+ (support existed at the hardware level of Windows 95), Mac OSX 10.4+, and Linux since kernel 2.6.
 Hibernate can be invoked by a user, scheduled by the system (after a certain period of inactivity) or forced when a low-power state is detected (less than 5\% battery power). Upon invocation the operating system will write the entire contents of RAM to non-volatile secondary storage and commence a complete power down.
-\\Suspend to Disk\label{sec:stDisk} is an implementation of hibernate used in the Linux operating system since kernel 2.6, the entire systems state is saved into swap space and the machine is completely powered off\citep{Wiki}.
+\paragraph{Suspend to Disk}\label{sec:stDisk} is an implementation of hibernate used in the Linux operating system since kernel 2.6, the entire systems state is saved into swap space and the machine is completely powered off\citep{Wiki}.
+\paragraph{Reopen Windows}\label{sec:reopen}
+is a default option available on Mac OSX 10.8+, this option enables the operating to enter a state of hibernation by default when the user shuts down, this gives the user the impression that the systems state is never lost because every time they power the system up the operating system will read the last valid state from non-volatile memory back into RAM.
 
 \subsection{Hybrid Methods}
 As the name suggests these methods are a combination of Sleep and Hibernate. Sections~\ref{sec:stBoth}, \ref{sec:hybridsleep} and \ref{sec:safesleep} explain how Linux, Windows and Apple operating systems (respectively) implement this form of preservation.
-Generally these methods write the system state to secondary storage and then enter their low power state (see section~\ref{sec:lowpower}). This means that the system is protected from a total power loss while still allowing for quicker startup times (when compared to the methods mentioned in \ref{sec:memorydump}) provided the power isn't completely lost. 
+Generally these methods write the system state to secondary storage and then enter their low power state (see section~\ref{sec:lowpower}). This means that the system is protected from a total sudden power loss while still allowing for quicker startup times (when compared to the methods mentioned in \ref{sec:memorydump}) provided the power isn't completely lost. 
 \subsubsection{Suspend to Both}\label{sec:stBoth}
-The Linux implementation of Hybrid Sleep, this is a combination of the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk}
+This is the name given to the combination of the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk} used in the Linux operating system. When a user invokes this method the operating system will take a snapshot of its main memory and save it to the secondary memory.
 \subsubsection{Hybrid Sleep}\label{sec:hybridsleep}
-This method is used by Windows operating systems since Vista.
+This method has been used by the Windows operating systems since Vista. Activated by default in some of the power management plans offered by the operating system, for example the ``Power Saver'' plan which was designed to save power by:
+\begin{itemize}
+    \item{Stopping the hard drives from spinning when not in use;}
+    \item{Lowering Central Processing Unit (CPU) frequency (where applicable); and}
+    \item{Activating Hybrid Sleep after short periods of inactivity (usually between 5-15 minutes).}
+\end{itemize}
+Hybrid sleep was selected for this plan in order to maintain a reasonable ``wake'' time when a user needs to interact with the system again~\citep{windowssleepandhibernation}.
 \subsubsection{Safe Sleep}\label{sec:safesleep}
+Commonly found in Apple laptops~\citep{safesleep}, safe sleep is an implementation of sleep first take a snapshot of the current systems state and saves it to non-volatile memory. The system then enters a low-power state, with this implementation the user will not lose their work (represented in the system state) even if the battery is completely depleted while in this low-power state.
 \subsection{Advance Configuration and Power Interface (ACPI)}
 The ACPI defines the current standards for power management \citep{ACPI} and as such have categorized all the methods described throughout this section on system state preservation (section~\ref{sec:preservation}). Table~\ref{table:categories} outlines where these methods are rated in terms of power usage.
 \begin{table}[h!]
@@ -286,6 +295,11 @@ Programs that enable this functionality contribute to making OSX a resilient and
 Similar to the auto save method (see section~\ref{sec:versioning}), journaling on its own cannot provide system  state preservation as it is mainly concerned with keeping the file system stable and not the systems state.
 \citep{journaling}
 \subsection{Summary}
+Operating systems are advancing daily, introducing new technologies (as described in section~\ref{sec:lowpower}) to help with preserving the systems state.
+\\
+Sleep states are currently the quickest to enter and exit from, this is because no large read/write actions need to be performed, however the case in which total power is lost is better dealt with when the system has entered a state of hibernation (as described in section~\ref{sec:memorydump}).
+\\
+Hybrid methods of system state preservation (mentioned in section~\ref{sec:preservation}) are more valuable on desktop systems when compared to mobile systems such as laptops. I have come to this conclusion because the only reason the system state needs to be saved is to guard against unexpected power loss, however a laptop operates on battery power which guards against these types of power losses, it's also worth mentioning that most modern battery monitors can detect when power is about to reach critically low levels and can in turn enforce system wide hibernation.
 \newpage
 \section{Discussion}\label{sec:discussion}
 %compare and contrast
