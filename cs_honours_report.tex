@@ -114,12 +114,12 @@ test~\citep{ADearle}
 \section{Persistence}\label{sec:persistence}
 Generally in computer science the term persistence is when the data that a process is working on outlives the life of the aforementioned  process. 
 The need for persistence is nicely explained by Atkinson;
-``Large scale and long-lived application systems, enterprise applications, require persistence, that is provision of storage for many of their data structures.''~\citep[page 1]{persistenceandjava}
+``Large scale and long-lived application systems, enterprise applications, require persistence, that is provision of storage for many of their data structures.''~\citep[p.~1]{persistenceandjava}
 
 \subsection{Conventional Systems}
 Conventional systems work in a transient manner; data and processes in these systems don't persist natively because the data that is being executed on exists in volatile main memory. For this reason programmers have had to develop methods of persistence. Conventionally this is done through the use of databases where a programmer needs to create mappings between objects and data in main memory and data in the database.
 \subsubsection{Cons}\label{sec:cons}
-The negative effects of this methodology are obvious, for instance if the system (or program running on a system) becomes unstable (see section~\ref{sec:preservation}) then all data can be lost. To combat this (as mentioned above) additional work is needed on the programmers behalf to move these objects into non-volatile memory. This not only gives the programmer more work, but also increases the load that a program puts on the system due to database calls which in a lot of languages are ``unable to benefit from compile-time verification and design-time features like IntelliSense.''\citep[page 1]{linqsql}.
+The negative effects of this methodology are obvious, for instance if the system (or program running on a system) becomes unstable (see section~\ref{sec:preservation}) then all data can be lost. To combat this (as mentioned above) additional work is needed on the programmers behalf to move these objects into non-volatile memory. This not only gives the programmer more work, but also increases the load that a program puts on the system due to database calls which in a lot of languages are ``unable to benefit from compile-time verification and design-time features like IntelliSense.''\citep[p~1]{linqsql}.
 \subsubsection{Pros}
 Despite the cons mentioned in section~\ref{sec:cons} there are still a few benefits of working in a conventional system. A major benefit is considered to be the use of relational databases to implement persistence and the loose coupling achieved through utilizing one~\citep{Databases}.
 A database stores many kinds of data in a standardised way for access by numerous different programs, this creates a loose coupling between the program and its persistent data. As a result of this coupling, it becomes easier to create generic light-weight reports to run over large sets of data without having to write large programs that incorporate this functionality~\citep{XML}.
@@ -193,24 +193,25 @@ Neither C\# or Basic are orthogonally persistent languages and the addition of L
 %how it compares to the orthogonal persistence model
 \par
 Grasshopper\label{sec:grasshopper} 
-%introduction - brief desc of the language
 is an operating system that provides orthogonal persistence~\citep{Grasshopper}. 
-The system meets the requirement of persistence independence through the use of containers. Containers represent partitions of the address space which ``provide the only abstraction over storage''~\citep[page 3]{Grasshopper}.
+The system meets the requirement of persistence independence through the use of containers. Containers represent partitions of the address space which ``provide the only abstraction over storage''~\citep[p~3]{Grasshopper}.
 The requirement for data type orthogonality is met through the usage of managers. Managers are responsible for providing data to containers when it is first accessed, they are also responsible for data maintenance when the data is not in RAM \citep{Grasshopper}.
 Along with containers and managers, the Grasshopper operating system relies heavily on capabilities and loci to assist in meeting the principal of persistence identification.
-%The system relies on containers, loci and capabilities in  order to meet the requirements set out by the principals of persistence independence, data type orthogonality and persistence identification.
-
-%problems encountered
-%how it compares to the orthogonal persistence model
 \par
 \subsection{Persistent Operating Systems}\label{sec:persistentOS}
-The components of a persistent system are different to those of a conventional operating system~\citep{Grasshopper} 
+A persistent operating system is one that retains its state information (see section~\ref{sec:preservation}), even after power failures in order to reach a stable state that reflects that of its operating environment before it was taken offline. This is made difficult because processes that are active and data that is being used by the system exist in a volatile environment, for this reason the components of a persistent system are different to those of a conventional operating system~\citep{Grasshopper}. The following sections describe some of the additional functionality required to create a persistent operating system.
+
 \subsubsection{Global Consistency}
-Global Checkpointing
-\par
-Asynchronous Checkpointing
-\par
-\paragraph{Synchronous Checkpointing}
+One of the first hurdles to overcome when designing a persistent operating system is how to achieve global consistency. When an operating system comes back online after some form of failure it must continue working as if nothing happened, this means all processes can safely resume where they left off. 
+It is not sufficient to make individual processes persistent in the context of a persistent operating system because processes aren't always independent of each other~\citep{coexistence}. There commonly exists dependencies between processes and the data that they operate on, multiple processes can work on the same set of data and processes can spawn other processes. These dependencies could mean that an operating system is stable, in such a way that all address spaces line up and there were no invalid operations being executed, but the presented environment is not indicative of the system before failure.
+\\
+Following are some methods of system checkpointing which attempt to achieve global consistency:
+\begin{enumerate}
+    \item{Global checkpointing - sometimes referred to as the `stop the world'~\citep{grasshopperkernel} method, global checkpoint stops all processes from executing and takes a system wide snapshot of the system and stores it in non-volatile memory;}
+    \item{Asynchronous checkpointing - processes take checkpoints periodically without coordinating with other processes~\citep{checkpointing}; and}
+    \item{Synchronous checkpointing - a list of dependencies between processes is maintained, often in a directed graph~\citep{coexistence}, in order to coordinate checkpointing times.}
+\end{enumerate}
+Method 1 from above would give the most accurate image of the system but has the drawbacks that the system has to halt while this is being done, this creates a negative experience for the user. Method 2 will provide a stable system but could potentially bring the system into an inconsistent state as processes can checkpoint at completely different points. Method 3 seems to be the most commonly used due to the simplicity in implementing this method~\citep{checkpointing}.
 \par
 \subsection{Limitations}\label{sec:limitations}
 \subsection{Summary}
