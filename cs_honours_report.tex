@@ -212,14 +212,13 @@ Following are some methods of system checkpointing which attempt to achieve glob
     \item{Synchronous checkpointing - a list of dependencies between processes is maintained, often in a directed graph~\citep{coexistence}, in order to coordinate checkpointing times.}
 \end{enumerate}
 Method 1 from above would give the most accurate image of the system but has the drawbacks that the system has to halt while this is being done, this creates a negative experience for the user. Method 2 will provide a stable system but could potentially bring the system into an inconsistent state as processes can checkpoint at completely different points. Method 3 seems to be the most commonly used due to the simplicity in implementing this method~\citep{checkpointing}.
-\par
-\subsection{Limitations}\label{sec:limitations}
+\subsubsection{Address Translation}
+For an operating system to be persistent it is necessary for the operating system to mange the address translation tasks~\citep{Dearle92anexamination}. The operating system must provide an abstraction over the storage devices such that the processes that run within the operating system can execute without knowledge of how or where the data is being stored. If this is not adhered to then the task of persistence get pushed up to the process itself~\citep{Kakkad:1998:ATS:899484}.
 \subsection{Summary}
-key points:
-\begin{itemize}
-    \item{the need for Persistence isn't well known through industry}
-    \item{Orthogonal persistence is difficult to achieve due to the need to implement all 3 principals mentioned in section~\ref{sec:orthogonal}}
-\end{itemize}
+Persistence refers to characteristic of data outliving the process that is manipulating it, persistence has been successfully implemented throughout many different systems for many different reasons, such as reporting over statistics, and to facilitate the need to work with the same data at different times by different processes. 
+\par
+Orthogonal persistence is much more difficult to implement because of the well defined required principals of any system claiming to implement orthogonal persistence. While these principals are difficult to implement, they make the implementation of orthogonal persistence more valuable than conventional persistence. This is due to the time and effort a programmer can save without having to think about how to persist objects and data. 
+
 \section{System State Preservation}\label{sec:preservation}
 The state of a system refers to the data and processes that live in that state. The state within conventional operating systems exists in a transient manner, this means that if a failure occurs the state can cease to exist (contrary to the persistent systems mentioned in section~\ref{sec:persistentOS}). In a perfect environment this would not matter however we do not live within a static system. We need to consider inconsistencies such as:
 \begin{itemize}
