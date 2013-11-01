@@ -74,13 +74,7 @@ Email: \texttt{c3127333@uon.edu.au} }
 
 \newpage
 \begin{abstract}%
-\noindent The abstract summarises the content of the paper or report and should have 70-200 words (depending on the publisher or other requirements); It
-should state briefly what the paper is about (maybe also what
-methods were used), what its (new) results are, why it is
-important or significant. It can also be useful to state (or
-indicate implicitly) who is the addressed readership and whether
-its a review article, a short paper, a pilot study, an
-extension of previous work or a thesis. Try to avoid special symbols, abbreviations, and citations.
+\noindent This report discusses in detail two methods of data longevity. These two methods are persistence in which data outlives the invocation of the process that created it, and system state preservation in which the entire state of the system should persist even while the host machine is not powered.
 \end{abstract}
 
 \pagebreak
@@ -308,13 +302,16 @@ Sleep states are currently the quickest to enter and exit from, this is because 
 \\
 Hybrid methods of system state preservation (mentioned in section~\ref{sec:preservation}) are more valuable on desktop systems when compared to mobile systems such as laptops. I have come to this conclusion because the only reason the system state needs to be saved is to guard against unexpected power loss, however a laptop operates on battery power which guards against these types of power losses, it's also worth mentioning that most modern battery monitors can detect when power is about to reach critically low levels and can in turn enforce system wide hibernation.
 \newpage
-\section{Discussion}\label{sec:discussion}
+\section{Comparison with Regards to Data Longevity}\label{sec:discussion}
 %compare and contrast
-Given a completely persistent system there would be no need for methods that preserve a systems state.
-%
-\section{Conclusion}
-%
-A brief final summary of the main achievements and outcomes. Possibly some suggestions for future work that can follow on from your project.%
+System state preservation and persistence both provide longevity of data in different ways. Persistence is commonly an action that a programmer must invoke (except in the case of orthogonal persistence) in order for users of the program to have long-lived data, that is data that outlives its manipulating process. Persistence in conventional systems is often achieved either though the use of a database or the file system.
+\par
+Orthogonal persistence is used for the same reason as conventional persistence, that is longevity of files, except it is achieved by a different process. Orthogonal persistence is done in the background, in this respect the implementation of a completely orthogonally persistent operating system, in which the entire state is made persistent brings us closer to the aims of system state preservation.
+\par
+System state preservation is more concerned with the longevity of the systems state. The systems state is held in volatile storage, meaning that if power to the system is lost, as is the systems state. This is another reason the need for persistence is so high (the other being mentioned above as the need for data to outlive the executing process). When issues arise in the system data can be lost unless it is persisted.
+System state preservation is more concerned with the image of the entire system at the point that a system goes offline, usually through user invocation, where persistence is more concerned with making the data currently being worked on by a process exist for however long it needs.
+\par
+It can be seen that if orthogonally persistent operating systems were perfected and widely adopted then the need for system state preservation would be void. If a system can be truly orthogonally persistent then the state of that system is inherently preserved.
 %
 \subsection*{Acknowledgements}
 The author is grateful to A/Prof Frans Henskens and Mark Wallis for the content presented throughout the course.
