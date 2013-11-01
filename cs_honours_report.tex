@@ -254,10 +254,6 @@ The Linux implementation of Hybrid Sleep, this is a combination of the methods e
 \subsubsection{Hybrid Sleep}\label{sec:hybridsleep}
 This method is used by Windows operating systems since Vista.
 \subsubsection{Safe Sleep}\label{sec:safesleep}
-\paragraph{Versioning}
-In addition to Safe Sleep, the latest versions of Mac OSX (10.8+) also exposes an API for automatic versioning. This API makes it easy for developers to create programs that act in a persistent manner; applications can now be configured to automatically save the users work in the background. 
-Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if Safe Sleep fails completely the automatic versioning should still have a recent copy of the users work to access.
-\par
 \subsection{Advance Configuration and Power Interface (ACPI)}
 The ACPI defines the current standards for power management \citep{ACPI} and as such have categorized all the methods described throughout this section on system state preservation (section~\ref{sec:preservation}). Table~\ref{table:categories} outlines where these methods are rated in terms of power usage.
 \begin{table}[h!]
@@ -278,6 +274,17 @@ The ACPI defines the current standards for power management \citep{ACPI} and as 
     \label{table:categories}
 \end{table}
 \\Rating S3 refers to all methods that consume ``low power'' and rating S4 refers to methods where absolutely no power is used \citep{ACPI}. S1 and S2 do exist (along with many others) but are not concerned with system state preservation and are not included in this report.
+
+\subsection{Additional Techniques}
+There are multiple techniques implemented in modern operating systems to assist in the preservation of system state. These techniques are listed in this section because they don't provide preservation independently.
+Some of these techniques are as follows:
+\subsubsection{Versions and Auto Save}\label{sec:versioning}
+Implemented in the latest iterations of Mac OSX (10.8+) is an API for automatic saving and versioning. This API makes it easy for developers to create programs that act in a persistent manner, applications can now be configured to automatically save the users work in the background \citep{versioning}. 
+Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if methods such as Safe Sleep (see section~\ref{sec:safesleep}) and Hibernate (see section~\ref{sec:hibernate}) fail completely the automatic versioning should still have access to a recent copy of the users work. As can be seen versioning preserves the state of user data, for example documents, however it does not provide complete system state preservation.
+
+\subsubsection{Journaling}
+Similar to the auto save method (see section~\ref{sec:versioning}), journaling on its own cannot provide system  state preservation as it is mainly concerned with keeping the file system stable and not the systems state.
+\citep{journaling}
 \subsection{Summary}
 \newpage
 \section{Discussion}\label{sec:discussion}
