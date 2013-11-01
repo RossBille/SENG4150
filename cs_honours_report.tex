@@ -166,12 +166,12 @@ Napier88 is another orthogonally persistent programming language\citep{napier}. 
 Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
 Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. Additionally the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper} and \ref{sec:pjama}) largely due to the abstraction it provides over the conventional operating system is runs on. The following are some persistence implementations.
-\paragraph{Java Serialization}
+\par
 Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
 \par
-\paragraph{Java's Hibernate}\label{sec:javahibernate}
+\label{sec:javahibernate}
 %introduction - brief desc of the method
-Because Java is so commonly used for large enterprise applications~\citep{persistenceandjava} there have been many persistence Application Programming Interfaces (API) developed. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
+Because Java is so commonly used for large enterprise applications there have been many persistence Application Programming Interfaces (API) developed~\citep{persistenceandjava}. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
 \\One of these persistence API's is Hibernate (not to be confused with section~\ref{sec:hibernate} of this report which refers to system state preservation). Hibernate builds on top of the Enterprise JavaBeans (EJB) and the Java Persistence API's, its main purpose is that of an object-relational mapping (ORM) library~\citep{hibernateORM}. This means it creates the mappings between in-memory objects and database tables and thus assists to provide persistence. Hibernate doesn't provide orthogonal persistence for the following reasons:
 \begin{itemize}
     \item{Objects can be marked as persistent or transient, breaking the principal of data type orthogonality; and}
@@ -179,20 +179,20 @@ Because Java is so commonly used for large enterprise applications~\citep{persis
 \end{itemize}
 Despite not being orthogonally persistent Hibernate is still widely used in industry.
 \par
-\paragraph{PJama}\label{sec:pjama}
+\label{sec:pjama}
 %introduction - brief desc of the method
-is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
+PJama is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
 \par
-\paragraph{Language Integrated Query (LINQ)}
+Language Integrated Query (LINQ)
 %introduction - brief desc of the method 
 is a Microsoft developed technology similar to Javas Hibernate (see section~\ref{sec:javahibernate}) for use with its visual C\# and visual Basic languages. It provides a single generic interface to access objects both in memory (collections etc) and database entities (through the Entity Framework component) to make the location of objects relatively transparent to the programmer~\citep{ADearle}.
 Neither C\# or Basic are orthogonally persistent languages and the addition of LINQ doesn't change that, it simply makes it easier for the programmer to implement persistence.
 %problems encountered
 %how it compares to the orthogonal persistence model
 \par
-\paragraph{Grasshopper}\label{sec:grasshopper}
+Grasshopper\label{sec:grasshopper} 
 %introduction - brief desc of the language
 is an operating system that provides orthogonal persistence~\citep{Grasshopper}. 
 The system meets the requirement of persistence independence through the use of containers. Containers represent partitions of the address space which ``provide the only abstraction over storage''~\citep[page 3]{Grasshopper}.
@@ -206,9 +206,9 @@ Along with containers and managers, the Grasshopper operating system relies heav
 \subsection{Persistent Operating Systems}\label{sec:persistentOS}
 The components of a persistent system are different to those of a conventional operating system~\citep{Grasshopper} 
 \subsubsection{Global Consistency}
-\paragraph{Global Checkpointing}
+Global Checkpointing
 \par
-\paragraph{Asynchronous Checkpointing}
+Asynchronous Checkpointing
 \par
 \paragraph{Synchronous Checkpointing}
 \par
@@ -251,8 +251,8 @@ These methods are the most effective in dealing with laptops that have run out o
 \subsubsection{Hibernate}\label{sec:hibernate}
 Hibernate is the main implementation of System State Preservation where the entire state is written to secondary storage. It is implemented in most modern operating systems, namely Windows 2000+ (support existed at the hardware level of Windows 95), Mac OSX 10.4+, and Linux since kernel 2.6.
 Hibernate can be invoked by a user, scheduled by the system (after a certain period of inactivity) or forced when a low-power state is detected (less than 5\% battery power). Upon invocation the operating system will write the entire contents of RAM to non-volatile secondary storage and commence a complete power down.
-\paragraph{Suspend to Disk}\label{sec:stDisk} is an implementation of hibernate used in the Linux operating system since kernel 2.6, the entire systems state is saved into swap space and the machine is completely powered off\citep{Wiki}.
-\paragraph{Reopen Windows}\label{sec:reopen}
+Suspend to Disk\label{sec:stDisk} is an implementation of hibernate used in the Linux operating system since kernel 2.6, the entire systems state is saved into swap space and the machine is completely powered off\citep{Wiki}.
+Reopen Windows\label{sec:reopen}
 is a default option available on Mac OSX 10.8+, this option enables the operating to enter a state of hibernation by default when the user shuts down, this gives the user the impression that the systems state is never lost because every time they power the system up the operating system will read the last valid state from non-volatile memory back into RAM.
 
 \subsection{Hybrid Methods}
