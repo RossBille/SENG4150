@@ -181,13 +181,14 @@ Despite not being orthogonally persistent Hibernate is still widely used in indu
 \par
 \paragraph{PJama}\label{sec:pjama}
 %introduction - brief desc of the method
-PJama is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
+is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
 \par
 \paragraph{Language Integrated Query (LINQ)}
 %introduction - brief desc of the method 
-LINQ is a Microsoft developed technology similar to Javas Hibernate (see section~\ref{sec:javahibernate}). It provides a single generic interface to access objects both in memory (collections etc) and database entities (through the Entity Framework component) to make the location of objects relatively transparent to the programmer~\citep{ADearle}.
+is a Microsoft developed technology similar to Javas Hibernate (see section~\ref{sec:javahibernate}) for use with its visual C# and visual Basic languages. It provides a single generic interface to access objects both in memory (collections etc) and database entities (through the Entity Framework component) to make the location of objects relatively transparent to the programmer~\citep{ADearle}.
+Neither C# or Basic are orthogonally persistent languages and the addition of LINQ doesn't change that, it simply makes it easier for the programmer to implement persistence.
 %problems encountered
 %how it compares to the orthogonal persistence model
 \par
