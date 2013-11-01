@@ -194,6 +194,12 @@ Neither C\# or Basic are orthogonally persistent languages and the addition of L
 \par
 \paragraph{Grasshopper}\label{sec:grasshopper}
 %introduction - brief desc of the language
+is an operating system that provides orthogonal persistence~\citep{Grasshopper}. 
+The system meets the requirement of persistence independence through the use of containers. Containers represent partitions of the address space which ``provide the only abstraction over storage''~\citep[page 3]{Grasshopper}.
+The requirement for data type orthogonality is met through the usage of managers. Managers are responsible for providing data to containers when it is first accessed, they are also responsible for data maintenance when the data is not in RAM \citep{Grasshopper}.
+Along with containers and managers, the Grasshopper operating system relies heavily on capabilities and loci to assist in meeting the principal of persistence identification.
+%The system relies on containers, loci and capabilities in  order to meet the requirements set out by the principals of persistence independence, data type orthogonality and persistence identification.
+
 %problems encountered
 %how it compares to the orthogonal persistence model
 \par
