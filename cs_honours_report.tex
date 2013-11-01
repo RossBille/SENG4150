@@ -95,7 +95,7 @@ There is a need for data to outlive its parent process, that is to exist both wh
 This report will describe some implementations of both methods and will finally compare the two with regards to data longevity.
 %
 \section{Persistence}\label{sec:persistence}
-Generally in computer science the term persistence is when the data that a process is working on outlives the life of the aforementioned  process. 
+Generally in computer science the term persistence refers to data that a process is working on outlives the life of the aforementioned  process. 
 The need for persistence is nicely explained by Atkinson;
 ``Large scale and long-lived application systems, enterprise applications, require persistence, that is provision of storage for many of their data structures.''~\citep[p.~1]{persistenceandjava}
 
@@ -104,10 +104,10 @@ Conventional systems work in a transient manner; data and processes in these sys
 \subsubsection{Cons}\label{sec:cons}
 The negative effects of this methodology are obvious, for instance if the system (or program running on a system) becomes unstable (see section~\ref{sec:preservation}) then all data can be lost. To combat this (as mentioned above) additional work is needed on the programmers behalf to move these objects into non-volatile memory. This not only gives the programmer more work, but also increases the load that a program puts on the system due to database calls which in a lot of languages are ``unable to benefit from compile-time verification and design-time features like IntelliSense.''\citep[p~1]{linqsql}.
 \subsubsection{Pros}
-Despite the cons mentioned in section~\ref{sec:cons} there are still a few benefits of working in a conventional system. A major benefit is considered to be the use of relational databases to implement persistence and the loose coupling achieved through utilizing one~\citep{Databases}.
+Despite the cons mentioned in section~\ref{sec:cons} there are still some benefits of working in a conventional system. A major benefit is considered to be the use of relational databases to implement persistence and the loose coupling achieved through utilizing one~\citep{Databases}.
 A database stores many kinds of data in a standardised way for access by numerous different programs, this creates a loose coupling between the program and its persistent data. As a result of this coupling, it becomes easier to create generic light-weight reports to run over large sets of data without having to write large programs that incorporate this functionality~\citep{XML}.
 \subsection{Orthogonal Persistence}\label{sec:orthogonal}
-Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it, for orthogonal persistence the persistence property should occur in the background, transparent to the programmer and any users.
+Also known as transparent persistence, orthogonal persistence is an implementation of persistence where the programmer doesn't need to invoke persistence in order to use it. For orthogonal persistence, the persistence property should occur in the background, transparent to the programmer and any users.
 Three principles of orthogonal persistence were identified by \citet{Atkinson}, these principles are as follows:
 \begin{enumerate}
     \item{The Principle of Persistence Independence - Programmer shouldn't be required to invoke persistence;}
@@ -120,7 +120,7 @@ These principals tie in nicely with the two principals of orthogonal persistence
     \item{Objects may be manipulated in the same manner regardless of their longevity.}
 \end{enumerate}
 \subsection{Implementations of Persistence}\label{sec:persistentLanguages}
-The following sections will introduce some persistent programming languages and briefly some of the hurdles encountered with each implementation. These implementations will be compared with the definition of orthogonal persistence given in Section~\ref{sec:orthogonal}.
+The following sections will introduce some persistent programming languages and briefly address some of the hurdles encountered with each implementation. These implementations will be compared with the definition of orthogonal persistence given in Section~\ref{sec:orthogonal}.
 %PS-algol
 \subsubsection{PS-Algol}
 %Introduction
@@ -148,7 +148,7 @@ Napier88 is another orthogonally persistent programming language\citep{napier}. 
 %how it compares to the orthogonal persistence model
 Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
-Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. Additionally the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper} and \ref{sec:pjama}) largely due to the abstraction it provides over the conventional operating system is runs on. The following are some persistence implementations.
+Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. Additionally the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper} and \ref{sec:pjama}) largely due to the abstraction it provides over the conventional operating system is runs on. The following paragraphs discuss some persistence implementations.
 \\\par
 Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
 \\\par
@@ -164,7 +164,7 @@ Despite not being orthogonally persistent Hibernate is still widely used in indu
 \\\par
 \label{sec:pjama}
 %introduction - brief desc of the method
-PJama is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
+PJama is a Java system built for persistence, it uses a modified interpreter to run Java programs in a persistent manner~\citep{persistentjavasystem}. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
 \\\par
@@ -194,7 +194,7 @@ Following are some methods of system checkpointing which attempt to achieve glob
     \item{Asynchronous checkpointing - processes take checkpoints periodically without coordinating with other processes~\citep{checkpointing}; and}
     \item{Synchronous checkpointing - a list of dependencies between processes is maintained, often in a directed graph~\citep{coexistence}, in order to coordinate checkpointing times.}
 \end{enumerate}
-Method 1 from above would give the most accurate image of the system but has the drawbacks that the system has to halt while this is being done, this creates a negative experience for the user. Method 2 will provide a stable system but could potentially bring the system into an inconsistent state as processes can checkpoint at completely different points. Method 3 seems to be the most commonly used due to the simplicity in implementing this method~\citep{checkpointing}.
+Method 1 from above would give the most accurate image of the system but has the drawbacks that the system has to halt while this is being done, this creates a negative experience for the user. Method 2 would provide a stable system but could potentially bring the system into an inconsistent state as processes can checkpoint at completely different points. Method 3 appears to be the most commonly used due to the simplicity in implementing this method~\citep{checkpointing}.
 \subsubsection{Address Translation}
 For an operating system to be persistent it is necessary for the operating system to mange the address translation tasks~\citep{Dearle92anexamination}. The operating system must provide an abstraction over the storage devices such that the processes that run within the operating system can execute without knowledge of how or where the data is being stored. If this is not adhered to then the task of persistence get pushed up to the process itself~\citep{Kakkad:1998:ATS:899484}.
 \subsection{Summary}
@@ -211,7 +211,7 @@ The state of a system refers to the data and processes that live in that state. 
     \item{Limited processing power}
     \item{Limited power (encouraging users to close laptop lids or power down machines regularly)}
 \end{itemize}
-For these reasons we need to develop methods that allow us to recover from the above mentioned inconsistencies, in such a way that once the system comes back online and usable the user can continue to work as if nothing has happened.
+For these reasons we need to develop methods that allow a recovery from the above mentioned inconsistencies, in such a way that once the system comes back online and usable the user can continue to work as if nothing has happened.
 \\A number of different methods have already been developed in response to this need, some more effective than others and some that require more resources than others. Sections~\ref{sec:lowpower} and~\ref{sec:memorydump} group these methods by behavior.
 
 \subsection{Low-power}\label{sec:lowpower}
@@ -219,12 +219,12 @@ The first group of methods that implement System State Preservation share the ch
 \\The following sections describe some examples of the low power method of System State Preservation.
 
 \subsubsection{Suspend to RAM}\label{sec:stRam}
-This is a method used by the Linux operating system where power is cut to all components of the system except for RAM which contains all the information in relation to system state.\citep{Wiki}
+This is a method used by the Linux operating system where power is cut to all components of the system except for RAM which contains all the information in relation to system state\citep{Wiki}.
 Suspend to RAM can be initiated by a user or scheduled by the system to save power when the system isn't being directly used. Suspend to RAM is not effective following a complete sudden loss of power due to a power failure.
 \subsubsection{PC box Power Management (PCPM)}\label{sec:PCPM}
 Used by most Windows computers since Windows 2000, PCPM refers to a form of system state preservation concerned with lowering power consumption of the PC (hard drive, CPU, etc.)~\citep{PCPM}. This method is usually implemented to save laptop battery life or to meet energy standards set by Energy Star in conjunction with Advanced Configuration Power Interface (ACPI)~\citep{PCPM}.
 \\
-Similar to Linux's method mentioned in section~\ref{sec:stRam}, this method is often referred to as ``sleep'', however some difficulties arose when networking started becoming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep. 
+Similar to Linux's method mentioned in section~\ref{sec:stRam}, this method is often referred to as ``sleep'', however some difficulties arose when networking started becoming popular in the industry. Today we see a lot of centrally managed computer environments where an organisation will image all their computers the same way and ``push'' updates when necessary. This became a problem when PCPM was first used as the computer would become disconnected from the network during system sleep~\citep{PCPM}. 
 For this reason it has been necessary to activate the Wake On Lan (WOL) feature of the operating system. WOL makes it possible for administrators to ``wake'' a computer from ``sleep'' by sending a message through the network interface making it possible for administrators to remotely issue updates~\citep{WOL}. For WOL to function the network interface must be powered as well as the RAM and this is the main difference between the PCPM method and Suspend to RAM methods addressed in section~\ref{sec:stRam}.
 
 \subsection{Memory dump}\label{sec:memorydump}
@@ -242,7 +242,7 @@ is a default option available on Mac OSX 10.8+, this option enables the operatin
 As the name suggests these methods are a combination of Sleep and Hibernate. Sections~\ref{sec:stBoth}, \ref{sec:hybridsleep} and \ref{sec:safesleep} explain how Linux, Windows and Apple operating systems (respectively) implement this form of preservation.
 Generally these methods write the system state to secondary storage and then enter their low power state (see section~\ref{sec:lowpower}). This means that the system is protected from a total sudden power loss while still allowing for quicker startup times (when compared to the methods mentioned in \ref{sec:memorydump}) provided the power isn't completely lost. 
 \subsubsection{Suspend to Both}\label{sec:stBoth}
-This is the name given to the combination of the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk} used in the Linux operating system. When a user invokes this method the operating system will take a snapshot of its main memory and save it to the secondary memory.
+Suspend to both refers to the combination of the methods explained in section~\ref{sec:stRam} and section~\ref{sec:stDisk} used in the Linux operating system. When a user invokes this method the operating system will take a snapshot of its main memory and save it to the secondary memory.
 \subsubsection{Hybrid Sleep}\label{sec:hybridsleep}
 This method has been used by the Windows operating systems since Vista. Activated by default in some of the power management plans offered by the operating system, for example the ``Power Saver'' plan which was designed to save power by:
 \begin{itemize}
@@ -272,7 +272,7 @@ The ACPI defines the current standards for power management \citep{ACPI} and as 
     \caption{ACPI power saving categories \citep{ACPI}}
     \label{table:categories}
 \end{table}
-\\Rating S3 refers to all methods that consume ``low power'' and rating S4 refers to methods where absolutely no power is used \citep{ACPI}. S1 and S2 do exist (along with many others) but are not concerned with system state preservation and are not included in this report.
+\\Rating S3 refers to all methods that consume ``low power'' and rating S4 refers to methods where absolutely no power is used \citep{ACPI}. S1 and S2 do exist (along with many others) but are not concerned with system state preservation and are beyond the scope of this report.
 
 \subsection{Additional Techniques}
 There are multiple techniques implemented in modern operating systems to assist in the preservation of system state. These techniques are listed in this section because they don't provide preservation independently.
@@ -285,11 +285,11 @@ Programs that enable this functionality contribute to making OSX a resilient and
 Similar to the auto save method (see section~\ref{sec:versioning}), journaling keeps a continuous record of all changes made to the file system~\citep{journaling}. Journaling on its own cannot provide system  state preservation as it is mainly concerned with keeping the file system stable and not the systems state.
 \citep{journaling}
 \subsection{Summary}
-Operating systems are advancing daily, introducing new technologies (as described in section~\ref{sec:lowpower}) to help with preserving the systems state.
+Operating systems are advancing daily, introducing new technologies to help with preserving the systems state.
 \\
-Sleep states are currently the quickest to enter and exit from, this is because no large read/write actions need to be performed, however the case in which total power is lost is better dealt with when the system has entered a state of hibernation (as described in section~\ref{sec:memorydump}).
+Sleep states are currently the quickest to enter and exit from, this is because no large read/write actions need to be performed, however the case of total power loss is better dealt with when the system has entered a state of hibernation. 
 \\
-Hybrid methods of system state preservation (mentioned in section~\ref{sec:preservation}) are more valuable on desktop systems when compared to mobile systems such as laptops. I have come to this conclusion because the only reason the system state needs to be saved is to guard against unexpected power loss, however a laptop operates on battery power which guards against these types of power losses, it's also worth mentioning that most modern battery monitors can detect when power is about to reach critically low levels and can in turn enforce system wide hibernation.
+Hybrid methods of system state preservation are more valuable on desktop systems when compared to mobile systems such as laptops. I have come to this conclusion because the only reason the system state needs to be saved is to guard against unexpected power loss, however a laptop operates on battery power which guards against these types of power losses, it is also worth mentioning that most modern battery monitors can detect when power is about to reach critically low levels and can in turn enforce system wide hibernation.
 \newpage
 \section{Comparison with Regards to Data Longevity}\label{sec:discussion}
 %compare and contrast
