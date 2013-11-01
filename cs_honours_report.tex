@@ -149,9 +149,9 @@ Napier88 is another orthogonally persistent programming language\citep{napier}. 
 Napier88 represents a fully integrated persistent environment that makes use of `text' and `hyperlinks' to aid in achieving the principals of persistence independence and data type orthogonality.
 \subsubsection{Java}
 Out-of-the-box Java is a transient programming language however it does provide interfaces to the programmer to make objects persist. Additionally the Java Virtual Machine (JVM) aids in creating persistent systems (see sections~\ref{sec:grasshopper} and \ref{sec:pjama}) largely due to the abstraction it provides over the conventional operating system is runs on. The following are some persistence implementations.
-\par
+\\\par
 Java provides interfaces for object serialization and deserialization to assist in persistence, these interfaces make the tasks of writing to and reading from secondary storage simple. Objects must implement the java.io.serializable interface in order to become persistent in this manner, which breaks the rule of data type orthogonality. Data persisted in this manner must also be explicitly written which means it also breaks the principal of persistence independence~\citep{ADearle}.
-\par
+\\\par
 \label{sec:javahibernate}
 %introduction - brief desc of the method
 Because Java is so commonly used for large enterprise applications there have been many persistence Application Programming Interfaces (API) developed~\citep{persistenceandjava}. These API's abstract the persistence processes (such as the object to relationship mappings) in order to speed up development time. 
@@ -161,26 +161,26 @@ Because Java is so commonly used for large enterprise applications there have be
     \item{A store function must be invoked to perform updates or inserts in the database, breaking the principal of persistence independence.}
 \end{itemize}
 Despite not being orthogonally persistent Hibernate is still widely used in industry.
-\par
+\\\par
 \label{sec:pjama}
 %introduction - brief desc of the method
 PJama is a Java system built for persistence, it uses a modified interpreter to run Java programs~\citep{persistentjavasystem} in a persistent manner. PJama can not persist some of the supported data types~\citep{ADearle}, failing the principal of data type orthogonality. 
 %problems encountered
 %how it compares to the orthogonal persistence model
-\par
+\\\par
 Language Integrated Query (LINQ)
 %introduction - brief desc of the method 
 is a Microsoft developed technology similar to Javas Hibernate (see section~\ref{sec:javahibernate}) for use with its visual C\# and visual Basic languages. It provides a single generic interface to access objects both in memory (collections etc) and database entities (through the Entity Framework component) to make the location of objects relatively transparent to the programmer~\citep{ADearle}.
 Neither C\# or Basic are orthogonally persistent languages and the addition of LINQ doesn't change that, it simply makes it easier for the programmer to implement persistence.
 %problems encountered
 %how it compares to the orthogonal persistence model
-\par
+\\\par
 Grasshopper\label{sec:grasshopper} 
 is an operating system that provides orthogonal persistence~\citep{Grasshopper}. 
 The system meets the requirement of persistence independence through the use of containers. Containers represent partitions of the address space which ``provide the only abstraction over storage''~\citep[p~3]{Grasshopper}.
 The requirement for data type orthogonality is met through the usage of managers. Managers are responsible for providing data to containers when it is first accessed, they are also responsible for data maintenance when the data is not in RAM \citep{Grasshopper}.
 Along with containers and managers, the Grasshopper operating system relies heavily on capabilities and loci to assist in meeting the principal of persistence identification.
-\par
+\\\par
 \subsection{Persistent Operating Systems}\label{sec:persistentOS}
 A persistent operating system is one that retains its state information (see section~\ref{sec:preservation}), even after power failures in order to reach a stable state that reflects that of its operating environment before it was taken offline. This is made difficult because processes that are active and data that is being used by the system exist in a volatile environment, for this reason the components of a persistent system are different to those of a conventional operating system~\citep{Grasshopper}. The following sections describe some of the additional functionality required to create a persistent operating system.
 
@@ -199,7 +199,7 @@ Method 1 from above would give the most accurate image of the system but has the
 For an operating system to be persistent it is necessary for the operating system to mange the address translation tasks~\citep{Dearle92anexamination}. The operating system must provide an abstraction over the storage devices such that the processes that run within the operating system can execute without knowledge of how or where the data is being stored. If this is not adhered to then the task of persistence get pushed up to the process itself~\citep{Kakkad:1998:ATS:899484}.
 \subsection{Summary}
 Persistence refers to characteristic of data outliving the process that is manipulating it, persistence has been successfully implemented throughout many different systems for many different reasons, such as reporting over statistics, and to facilitate the need to work with the same data at different times by different processes. 
-\par
+\\\par
 Orthogonal persistence is much more difficult to implement because of the well defined required principals of any system claiming to implement orthogonal persistence. While these principals are difficult to implement, they make the implementation of orthogonal persistence more valuable than conventional persistence. This is due to the time and effort a programmer can save without having to think about how to persist objects and data. 
 
 \section{System State Preservation}\label{sec:preservation}
@@ -282,7 +282,7 @@ Implemented in the latest iterations of Mac OSX (10.8+) is an API for automatic 
 Programs that enable this functionality contribute to making OSX a resilient and reliable system because even if methods such as Safe Sleep (see section~\ref{sec:safesleep}) and Hibernate (see section~\ref{sec:hibernate}) fail completely the automatic versioning should still have access to a recent copy of the users work. As can be seen versioning preserves the state of user data, for example documents, however it does not provide complete system state preservation.
 
 \subsubsection{Journaling}
-Similar to the auto save method (see section~\ref{sec:versioning}), journaling on its own cannot provide system  state preservation as it is mainly concerned with keeping the file system stable and not the systems state.
+Similar to the auto save method (see section~\ref{sec:versioning}), journaling keeps a continuous record of all changes made to the file system~\citep{journaling}. Journaling on its own cannot provide system  state preservation as it is mainly concerned with keeping the file system stable and not the systems state.
 \citep{journaling}
 \subsection{Summary}
 Operating systems are advancing daily, introducing new technologies (as described in section~\ref{sec:lowpower}) to help with preserving the systems state.
@@ -293,13 +293,13 @@ Hybrid methods of system state preservation (mentioned in section~\ref{sec:prese
 \newpage
 \section{Comparison with Regards to Data Longevity}\label{sec:discussion}
 %compare and contrast
-System state preservation and persistence both provide longevity of data in different ways. Persistence is commonly an action that a programmer must invoke (except in the case of orthogonal persistence) in order for users of the program to have long-lived data, that is data that outlives its manipulating process. Persistence in conventional systems is often achieved either though the use of a database or the file system.
-\par
+System state preservation and persistence both provide longevity of data in different ways. Persistence is commonly an action that a programmer must invoke (except in the case of orthogonal persistence) in order for users of the program to have long-lived data, that is data that outlives its manipulating process. Persistence in conventional systems is often achieved either though the use of a database or the file system, this can become a tedious task. ``Much of the data collected in drug research efforts and clinical trials never changes. Yet it must be retained for more than decade, which is a storage-management headache.''~\citep[p.~1]{EMC}, as can be understood by this statement, the conventional persistence system gets very tiring and complex especially when the data set becomes large.
+\\\par
 Orthogonal persistence is used for the same reason as conventional persistence, that is longevity of files, except it is achieved by a different process. Orthogonal persistence is done in the background, in this respect the implementation of a completely orthogonally persistent operating system, in which the entire state is made persistent brings us closer to the aims of system state preservation.
-\par
+\\\par
 System state preservation is more concerned with the longevity of the systems state. The systems state is held in volatile storage, meaning that if power to the system is lost, as is the systems state. This is another reason the need for persistence is so high (the other being mentioned above as the need for data to outlive the executing process). When issues arise in the system data can be lost unless it is persisted.
 System state preservation is more concerned with the image of the entire system at the point that a system goes offline, usually through user invocation, where persistence is more concerned with making the data currently being worked on by a process exist for however long it needs.
-\par
+\\\par
 It can be seen that if orthogonally persistent operating systems were perfected and widely adopted then the need for system state preservation would be void. If a system can be truly orthogonally persistent then the state of that system is inherently preserved.
 %
 \subsection*{Acknowledgements}
