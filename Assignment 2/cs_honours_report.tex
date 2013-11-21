@@ -124,7 +124,7 @@ An example of a system that implements the IIA approach successfully is the MONA
 %What is it
 %how it works
 \subsubsection*{Issues}
-\textbf{\indent~Addressing}\\
+\par\textbf{\indent~Addressing}\\
 %size
 Generally OIDs are assigned in a hierarchical manner to create a logical structure which speeds up access times, one such example of this would be the use of a binary tree, such a method is referred to as logical OIDs~\citep{oid} and the OID is tied in with the actual location of the data.
 If this is the approach taken to assign OID's then the act of moving objects becomes a larger issue in this OID approach when compared to the IIA approach.
@@ -135,7 +135,7 @@ Another issue comes from the assumption that we need a mapping between OID and a
 This would mean that every time an object needs to access another object then it must perform this lookup, this introduces a single point of failure and a bottleneck.
 %loosely couple - Well if you move an object in the alternative approach, you only have to change the value of the key. Rather than go through MONADS approach to moving modules
     %MONADS tightly coupoles the VMA to the location, meaning any change in the location, requires all nodes to update in some way
-\\\textbf{\indent~Protection}\\
+\par\textbf{\indent~Protection}\\
 With a conventional database, permissions may be set at the database level, read and writes are either granted or denied, these permissions are not allocated to anything smaller than a database (rows and columns).
 When viewing this implementation of stable store it becomes apparent that security and access control becomes a problem, this is because we cannot simply set a database permission (this would not be sufficient), we would need to set individual object permissions.
 This is inefficient and difficult to maintain, with the possibility of $n*(n-1)$ permissions throughout the database.
@@ -205,7 +205,7 @@ For a transaction to be considered effective it must possess the following attri
     \item{Isolation - Transactions cannot interfere with each other.}
     \item{Durability - Effects of successful transactions must persist even through system failures.}
 \end{itemize}
-These attributes are known as the ACID properties.
+These attributes are known as the ACID properties and transactions adhering to these four properties solve the issues listed above.
 
 \par\textbf{Transaction Manager}\\
 % Transaction Controller
@@ -219,7 +219,14 @@ Pessimistic locking assumes the worst~\citep{pessimistic-vs-optimistic}, it assu
 
 Optimistic locking assumes that conflicts will be rare and therefor will only perform a lock if it finds evidence that a conflict will occur~\citep{pessimistic-vs-optimistic}.
 
-
+\par\textbf{How Transactions Solve the Above Issues}\\
+Transactions can be implemented in many different ways, following are some examples in regards to the above issues.
+\begin{itemize}
+    \item{Lost Update - Fixed largely to atomicity and isolation. Implemented through placing a lock (pessimistic or optimistic) on the data that a transaction is working on until the entire transaction is complete, this way if the transaction fails everything can roll back and another transaction can execute.}
+    \item{Uncommitted Dependency - Isolation and atomicity are responsible for fixing this issue. An example implementation would be to place a lock on all the resources needed by a transaction and then copy those resources into a temporary location to be worked on, if all are successful then the temporary data is written to the original location.}
+    \item{Inconsistent Analysis - Consistency isolation and atomicity are responsible for this type of issue. An example implementation would be to lock all the resources needed by a transaction.}
+    \item{System Failure - Fixed due to the combination of atomicity and durability. If a system goes down mid way through a transaction then when it comes back up it must review the changes that were done (usually from logs) and roll back the half of the transaction that was interrupted.}
+\end{itemize}
 
 \subsection*{Effectiveness in Non-Connected Computers vs. Distributed Operating Systems}
 %how they solve above issues
@@ -229,6 +236,10 @@ This is simple to accomplish because it will have visibility and control over al
 
 However when it comes to a distributed operating system a central TM makes little sense. 
 In a distributed system there are many owners of many resources that all nodes can have access to.
+While ACID transactions will still solve the problems, implementing these transactions is non-trivial. The main culprit is atomicity, because there are many owners there can be many different interpretations of a transaction that has completed. 
+The problem also arises that a transaction can fail because its actions span across different sites in which one (or more) of these sites goes offline mid transaction, this making the rolling back of actions difficult to achieve.
+A two-phase commit (explained below) or similar approach is necessary to assist in transaction management.
+
 For a central TM to work all requests of access of these resources must go through this TM before they can be served.
 Not only does this create a bottleneck but it also causes a significant single point of failure, this is because the TM would need to live somewhere. 
 If we allocate a node for this job and that node goes down then the rest of the system can not function, which is not acceptable in a proper distributed system where the system should still be usable even if a node fails.
