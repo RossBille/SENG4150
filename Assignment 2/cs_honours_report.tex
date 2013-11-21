@@ -1,0 +1,120 @@
+%
+% Honours Report Template
+% updated May 2013
+%
+\documentclass[a4paper,12pt]{article}
+\makeatletter
+%\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+%{-2.5ex\@plus -1ex \@minus -.25ex}%
+%{1.25ex \@plus .25ex}%
+%{\normalfont\normalsize\bfseries}}
+%\makeatother
+%\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+%\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+%
+\usepackage{url}
+\usepackage{epsfig}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage[square,sort&compress,numbers]{./natbib/natbib}
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{color}
+%stop splitting words at the end of a line
+%\usepackage[none]{hyphenat}
+
+%\graphicspath{{./figures/}
+%Formatting-------------------------------------------------------------------
+%\renewcommand{\refname}{\textbf{Literature}}
+%
+\renewcommand{\contentsname}{\small\textbf{{\center Table of Contents}}}
+%
+\setlength{\textheight}{8.8in}
+%
+\setlength{\topmargin}{-1.5cm}
+%
+\doublespacing
+%\setlength{\textwidth}{17cm}
+%
+%\setlength{\oddsidemargin}{-0.1714in}
+%
+% Boxit -----------------------------------------------------------
+\setlength{\fboxrule}{0.2mm} \setlength{\fboxsep}{4mm}
+%
+\newsavebox{\savepar}
+\newenvironment{boxit}{\begin{lrbox}{\savepar}
+        \begin{minipage}[b]{4.6in}}
+        {\end{minipage}\end{lrbox}\fbox{\usebox{\savepar}}}
+        
+        
+        
+        
+ \hyphenation{op-tical net-works Mathe-ma-tical street-scape street-scapes aes-the-tics aes-the-tic com-pu-ting geo-metric Geo-me-tric geo-metry boun-da-ries de-ve-lop-ment know-ledge mani-fold mani-folds high-di-men-sio-nal}
+%
+%
+%
+% Document-----------------------------------------------------------------------
+%
+\begin{document}
+%
+\title{\bf SENG4150 - DISTRIBUTED OPERATING SYSTEMS FINAL EXAMINATION}
+%
+\author{Ross Bille - 3127333\\
+School of Electrical Engineering \& Computer Science\\
+The University of Newcastle\\ Callaghan NSW 2308, Australia\\
+Email: \texttt{c3127333@uon.edu.au} } 
+
+\maketitle
+\newpage
+\section*{Question 1}
+A system of this description would contain a page table size of 2\textsuperscript{55}~bytes out of the possible 2\textsuperscript{64}~bytes
+
+%explain what a multi-level page table is
+
+%
+
+\section*{Question 2}
+\subsection*{Identity Incorporating Address}
+%What is it
+%how it works
+\subsection*{OID}
+%What is it
+%how it works
+\subsection*{Issues}
+\subsubsection*{Addressing}
+\subsubsection*{Protection}
+\section*{Question 3}
+
+\subsection*{Concurrent Access}
+%Define Concurrent access
+Concurrent access refers to the ability of multiple processes to access systems resources or components simultaneously. For instance multiple processes accessing the same message queue at the same time~\citep{managing-concurrent-access}.
+
+%Define the issues that arise due to concurrent access
+
+\subsection*{Transactions}
+%define transactions
+A transaction represents a set of related actions that are performed as a unit~\citep{nested-transactions}.
+% ACID
+% pessimistic
+% optimistic
+% Transaction Controller
+
+\subsection*{Non-Connected vs. Distributed Computers}
+%how they solve above issues
+%use of Centralised Transaction controller vs other means of transaction contro`'l
+
+
+
+
+
+\vskip 0.2in
+\newpage
+\bibliographystyle{apalike}
+\bibliography{./literature.bib}
+
+\end{document}
