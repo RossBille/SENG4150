@@ -221,7 +221,7 @@ Optimistic locking assumes that conflicts will be rare and therefor will only pe
 
 
 
-\subsection*{Effectiveness in Non-Connected  Computers vs. Distributed Operating Systems}
+\subsection*{Effectiveness in Non-Connected Computers vs. Distributed Operating Systems}
 %how they solve above issues
 %use of Centralised Transaction controller vs other means of transaction control
 In a non-connected computer a single centralised TM is responsible for all transactions in the system. 
@@ -240,7 +240,7 @@ Letting the resource owners act as individual TM's means that if a node goes dow
 \subsubsection*{2PC}
 As the name suggests 2PC consists of two phases:
 \begin{enumerate}
-    \item{Voting phase - All participating processes are told to take steps to prepare for commiting or aborting, each participant must reply with commit or abort (if there has been a problem).}
+    \item{Voting phase - All participating processes are told to take steps to prepare for committing or aborting, each participant must reply with commit or abort (if there has been a problem).}
     \item{Commit phase  The coordinator will instructs all participants to either commit (if all voted commit) or abort and rollback (is any voted abort).}
 \end{enumerate}
 
